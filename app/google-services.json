@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "563431806490",
+    "project_id": "laundryproject-7d804",
+    "storage_bucket": "laundryproject-7d804.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563431806490:android:f3308a93f3d3431185a3a3",
+        "android_client_info": {
+          "package_name": "com.alpermelkeli.laundrycenter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrfIlSK44I7Chs_rXyNDRQR84WVrAksG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
