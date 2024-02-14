@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.loginregister.fragment.LoginRegisterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="152dp"
+            android:text="LaundryCenter"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            android:fontFamily="@font/semibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:layout_marginBottom="56dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerButton"
+                android:layout_width="348dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/register_button_background"
+                android:text="Hesap oluştur"
+                android:fontFamily="@font/poppins_regular"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16dp"/>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
+                android:layout_width="348dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/login_button_background"
+                android:text="Giriş yap"
+                android:textAlignment="center"
+                android:fontFamily="@font/poppins_regular"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16dp"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

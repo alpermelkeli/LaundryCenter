@@ -7,6 +7,10 @@ android {
     namespace = "com.alpermelkeli.laundrycenter"
     compileSdk = 34
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.alpermelkeli.laundrycenter"
         minSdk = 24
