@@ -24,6 +24,33 @@ public class RegisterEmailFragment extends Fragment {
         View view = binding.getRoot();
 
 
+        binding.emailPageBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = binding.registerEmailInput.getText().toString();
+
+
+
+
+            }
+        });
+
+
+
+
+
+
         return view;
     }
+
+
+
+
 }

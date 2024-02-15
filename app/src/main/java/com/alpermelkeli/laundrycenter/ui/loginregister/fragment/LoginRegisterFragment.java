@@ -3,6 +3,8 @@ package com.alpermelkeli.laundrycenter.ui.loginregister.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +29,36 @@ public class LoginRegisterFragment extends Fragment {
         View view = binding.getRoot();
 
 
+        binding.registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new RegisterEmailFragment());
+            }
+        });
 
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
 
         return view;
     }
+
+
+    //TODO configure animation again.
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_in,
+                        R.anim.fade_out,                //I added animations.
+                        R.anim.fade_in,
+                        R.anim.slide_out);
+        fragmentTransaction.replace(R.id.mainFrameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
 }
