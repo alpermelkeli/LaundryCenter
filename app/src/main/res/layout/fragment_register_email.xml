@@ -63,7 +63,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/nextButton"
+                android:id="@+id/emailNextButton"
                 android:layout_width="348dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"

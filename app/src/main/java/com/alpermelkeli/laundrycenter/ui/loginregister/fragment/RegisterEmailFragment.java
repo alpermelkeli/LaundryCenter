@@ -3,6 +3,7 @@ package com.alpermelkeli.laundrycenter.ui.loginregister.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +32,12 @@ public class RegisterEmailFragment extends Fragment {
             }
         });
 
-        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+        binding.emailNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = binding.registerEmailInput.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("email", email);
 
 
 
@@ -43,11 +46,14 @@ public class RegisterEmailFragment extends Fragment {
         });
 
 
-
-
-
-
         return view;
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+                ft.replace(R.id.mainFrameLayout, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
     }
 
 
