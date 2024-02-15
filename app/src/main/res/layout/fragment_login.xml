@@ -19,7 +19,7 @@
             android:layout_marginStart="35dp"
             android:layout_marginTop="140dp"
             android:fontFamily="@font/semibold"
-            android:text="Kayıt ol;"
+            android:text="Giriş yap;"
             android:textColor="@color/white"
             android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,8 +28,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="412dp"
-            android:layout_height="322dp"
+            android:layout_width="match_parent"
+            android:layout_height="367dp"
             android:layout_marginBottom="92dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,21 +41,45 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="0dp"
                 android:fontFamily="@font/semibold"
                 android:text="E-posta adresi"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/registerEmailInput"
+                android:id="@+id/loginEmailInput"
                 android:layout_width="348dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/login_button_background"
                 android:fontFamily="@font/poppins_regular"
-                android:hint="E-posta adresin ile kaydol..."
+                android:hint="E-posta adresini gir..."
+                android:inputType="textEmailAddress"
+                android:paddingStart="18dp"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="45dp"
+                android:fontFamily="@font/semibold"
+                android:text="Parola"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/loginPasswordInput"
+                android:layout_width="348dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/login_button_background"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Parolanı gir..."
                 android:inputType="textEmailAddress"
                 android:paddingStart="18dp"
                 android:textAllCaps="false"
@@ -64,11 +88,11 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/emailNextButton"
+                android:id="@+id/nextButton"
                 android:layout_width="348dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="120dp"
                 android:layout_marginBottom="80dp"
                 android:background="@drawable/register_button_background"
                 android:fontFamily="@font/poppins_regular"
