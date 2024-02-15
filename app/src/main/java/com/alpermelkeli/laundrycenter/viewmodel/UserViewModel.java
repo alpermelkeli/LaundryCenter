@@ -8,21 +8,39 @@ import com.alpermelkeli.laundrycenter.repository.UserRepository;
 
 public class UserViewModel extends ViewModel {
     MutableLiveData<User> userLiveData;
+    Boolean isLogged;
     UserRepository userRepository;
 
     public UserViewModel(){
         this.userLiveData = new MutableLiveData<>();
         this.userRepository = new UserRepository();
+        this.isLogged = false;
     }
 
     public LiveData<User> getUserLiveData(){
         return userLiveData;
     }
+    public Boolean getIsLogged(){
+        return isLogged;
+    }
 
+    public void checkUser(String email, String password){
 
-    public void loadUser(String email, String password){
+        userRepository.checkUser(new UserRepository.CheckUserCallBack() {
+            @Override
+            public void onSuccess(Boolean success) {
+                isLogged = true;
+            }
 
-        userRepository.getUser(new UserRepository.UserCallBack() {
+            @Override
+            public void onFailure(String fail) {
+                System.out.println(fail);
+            }
+        }, email, password);
+    }
+    public void getUser(String email){
+
+        userRepository.getUser(new UserRepository.GetUserCallBack() {
             @Override
             public void onUserLoaded(User user) {
                 userLiveData.setValue(user);
@@ -32,7 +50,7 @@ public class UserViewModel extends ViewModel {
             public void onFailure(String fail) {
                 System.out.println(fail);
             }
-        }, email, password);
+        }, email);
 
 
     }

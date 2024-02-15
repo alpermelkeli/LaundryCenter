@@ -29,25 +29,23 @@
 
 
         <LinearLayout
-            android:layout_width="393dp"
+            android:layout_width="match_parent"
             android:layout_height="367dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="358dp">
-
-
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:fontFamily="@font/poppins_regular"
                 android:text="E-posta adresi"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="35dp"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/registerEmailInput"
@@ -55,14 +53,14 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
-                android:hint="E-posta adresin ile kaydol..."
-                android:inputType="textEmailAddress"
                 android:background="@drawable/login_button_background"
                 android:fontFamily="@font/poppins_regular"
+                android:hint="E-posta adresin ile kaydol..."
+                android:inputType="textEmailAddress"
+                android:paddingStart="18dp"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="16dp"
-                android:paddingStart="18dp"/>
+                android:textSize="16dp" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -88,11 +86,14 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/emailPageBackButton"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
             android:src="@drawable/back_button"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="59dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

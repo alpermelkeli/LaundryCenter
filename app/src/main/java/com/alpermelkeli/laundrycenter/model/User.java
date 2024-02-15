@@ -4,7 +4,6 @@ public class User {
     Double balance;
     String company;
     String email;
-    String password;
 
     public Double getBalance() {
         return balance;
@@ -30,11 +29,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

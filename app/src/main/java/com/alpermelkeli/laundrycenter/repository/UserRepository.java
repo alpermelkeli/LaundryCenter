@@ -9,14 +9,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     User user = new User();
 
-    public void getUser(UserCallBack callBack, String email, String password){
+
+    //Check if user logged in successfully
+    public void checkUser(CheckUserCallBack callBack, String email, String password){
 
         db.collection("User")
                 .document(email)
@@ -26,11 +25,8 @@ public class UserRepository {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         DocumentSnapshot document = task.getResult();
                         if(password.equals(document.getString("password"))){
-                            user.setBalance(document.getDouble("balance"));
-                            user.setCompany(document.getString("company"));
-                            user.setEmail(document.getString("email"));
-                            user.setPassword(document.getString("password"));
-                            callBack.onUserLoaded(user);
+
+                            callBack.onSuccess(true);
 
                         }
                         else {
@@ -48,6 +44,32 @@ public class UserRepository {
                         callBack.onFailure("Kullanıcı bulunamadı");
                     }
                 });
+    }
+    //Get user data from database after logged in and show balance name etc.
+    public void getUser(GetUserCallBack callBack, String email){
+
+        db.collection("User")
+                .document(email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            user.setBalance(document.getDouble("balance"));
+                            user.setEmail(document.getString("email"));
+                            user.setCompany(document.getString("company"));
+                            callBack.onUserLoaded(user);
+
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callBack.onFailure(e.toString());
+                    }
+                });
 
 
 
@@ -60,9 +82,14 @@ public class UserRepository {
 
 
 
-    public interface UserCallBack{
+    public interface CheckUserCallBack {
+        void onSuccess(Boolean success);
+        void onFailure(String fail);
+    }
+
+    public interface GetUserCallBack {
         void onUserLoaded(User user);
         void onFailure(String fail);
-
     }
+
 }
