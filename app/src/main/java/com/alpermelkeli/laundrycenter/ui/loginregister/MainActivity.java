@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.os.Bundle;
@@ -12,23 +14,36 @@ import android.view.View;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.ActivityMainBinding;
+import com.alpermelkeli.laundrycenter.model.Device;
 import com.alpermelkeli.laundrycenter.model.User;
+import com.alpermelkeli.laundrycenter.repository.DeviceRepository;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
 import com.alpermelkeli.laundrycenter.ui.loginregister.fragment.LoginRegisterFragment;
+import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private LoginRegisterFragment loginRegisterFragment;
+    DeviceViewModel deviceViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         View view = binding.getRoot();
+
         setContentView(view);
+
         loginRegisterFragment = new LoginRegisterFragment();
+
         replaceFragment(loginRegisterFragment);
+
+
+
     }
 
     public void replaceFragment(Fragment fragment){
