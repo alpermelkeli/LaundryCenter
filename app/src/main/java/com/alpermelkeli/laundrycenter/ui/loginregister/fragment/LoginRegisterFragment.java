@@ -2,6 +2,7 @@ package com.alpermelkeli.laundrycenter.ui.loginregister.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -39,7 +40,7 @@ public class LoginRegisterFragment extends Fragment {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                replaceFragment(new LoginFragment());
             }
         });
 
@@ -58,6 +59,18 @@ public class LoginRegisterFragment extends Fragment {
         fragmentTransaction.replace(R.id.mainFrameLayout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    //Exit app when user clicked on back button
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish();
+            }
+        });
     }
 
 

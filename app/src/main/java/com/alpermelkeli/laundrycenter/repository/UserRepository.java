@@ -27,28 +27,28 @@ public class UserRepository {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        if(password.equals(document.getString("password"))){
-
-                            callBack.onSuccess(true);
-
+                        if(task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String storedPassword = document.getString("password");
+                                if (storedPassword != null && password.equals(storedPassword)) {
+                                    callBack.onSuccess(true);
+                                } else {
+                                    callBack.onFailure("Kullanıcı şifresi yanlış");
+                                }
+                            } else {
+                                // E-posta adresine sahip belge var ama belgede "password" alanı yok
+                                callBack.onFailure("Kullanıcı bulunamadı");
+                            }
+                        } else {
+                            // Firestore'dan belge alırken hata oluştu
+                            callBack.onFailure("Belge alınırken hata oluştu: " + task.getException());
                         }
-                        else {
-
-                            callBack.onFailure("Kullanıcı şifresi yanlış");
-                        }
-
-
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        callBack.onFailure("Kullanıcı bulunamadı");
                     }
                 });
     }
+
+
     //Get user data from database after logged in and show balance name etc.
     public void getUser(GetUserCallBack callBack, String email){
 

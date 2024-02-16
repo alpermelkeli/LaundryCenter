@@ -3,6 +3,7 @@ package com.alpermelkeli.laundrycenter.ui.loginregister.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -32,7 +33,16 @@ public class RegisterPasswordFragment extends Fragment {
                 String password = binding.registerPasswordlInput.getText().toString();
                 bundle.putString("password", password);
                 // TODO transfer data to RegisterCompanyFragment with bundle and replaceFragment.
-
+                RegisterCompanyFragment registerCompanyFragment = new RegisterCompanyFragment();
+                registerCompanyFragment.setArguments(bundle);
+                replaceFragment(registerCompanyFragment);
+            }
+        });
+        binding.passwordPageBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getParentFragmentManager();
+                fm.popBackStack();
             }
         });
 
