@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/qrScan"
+    android:icon="@color/black"
+    android:title="Qr Okut"
+                            />
+    <item android:id="@+id/devices"
+        android:icon="@color/black"
+        android:title="Makineler"
+        />
+    <item android:id="@+id/profile"
+        android:icon="@color/black"
+        android:title="Profil"
+        />
+</menu>

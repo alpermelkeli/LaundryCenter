@@ -6,4 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.homescreen.HomeScreen">
 
+    <FrameLayout
+        android:id="@+id/homeScreenFrame"
+        android:layout_width="412dp"
+        android:layout_height="667dp"
+        app:layout_constraintBottom_toTopOf="@+id/homeScreenNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/homeScreenNavBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/homescreen_navbar"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@
 
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="140dp"
@@ -27,7 +28,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:layout_width="459dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/laundry"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="192dp"
             android:layout_marginBottom="56dp"
@@ -44,13 +57,12 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/register_button_background"
-                android:text="Hesap oluştur"
                 android:fontFamily="@font/poppins_regular"
+                android:text="Hesap oluştur"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16dp"/>
-
+                android:textSize="16dp" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -60,12 +72,12 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/login_button_background"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Giriş yap"
                 android:textAlignment="center"
-                android:fontFamily="@font/poppins_regular"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="16dp" />
 
 
         </LinearLayout>
