@@ -38,9 +38,9 @@ public class RegisterEmailFragment extends Fragment {
                 String email = binding.registerEmailInput.getText().toString();
                 Bundle bundle = new Bundle();
                 bundle.putString("email", email);
-
-
-
+                RegisterPasswordFragment registerPasswordFragment = new RegisterPasswordFragment();
+                registerPasswordFragment.setArguments(bundle);
+                replaceFragment(registerPasswordFragment);
 
             }
         });
@@ -49,11 +49,15 @@ public class RegisterEmailFragment extends Fragment {
         return view;
     }
 
-    public void replaceFragment(Fragment fragment){
-        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-                ft.replace(R.id.mainFrameLayout, fragment);
-                ft.addToBackStack(null);
-                ft.commit();
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_in,
+                        R.anim.fade_out,                //I added animations.
+                        R.anim.fade_in,
+                        R.anim.slide_out);
+        fragmentTransaction.replace(R.id.mainFrameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 

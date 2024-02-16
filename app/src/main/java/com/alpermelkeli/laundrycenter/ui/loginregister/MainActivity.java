@@ -13,6 +13,7 @@ import android.view.View;
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.ActivityMainBinding;
 import com.alpermelkeli.laundrycenter.model.User;
+import com.alpermelkeli.laundrycenter.repository.UserRepository;
 import com.alpermelkeli.laundrycenter.ui.loginregister.fragment.LoginRegisterFragment;
 
 public class MainActivity extends AppCompatActivity {
