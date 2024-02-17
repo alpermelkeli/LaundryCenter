@@ -16,7 +16,8 @@ public class QrScanningActivity extends AppCompatActivity {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setOrientationLocked(false);
         integrator.setBeepEnabled(false);
-        integrator.setPrompt("QR kodu tarayın");
+        integrator.setPrompt("");
+        integrator.setCameraId(0);
         integrator.initiateScan();
     }
 

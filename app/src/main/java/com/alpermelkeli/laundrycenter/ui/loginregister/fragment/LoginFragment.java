@@ -50,6 +50,7 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getActivity(), "Giriş Başarılı", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(getActivity(), HomeScreen.class);
+                        intent.putExtra("email", email);
 
                         startActivity(intent);
 

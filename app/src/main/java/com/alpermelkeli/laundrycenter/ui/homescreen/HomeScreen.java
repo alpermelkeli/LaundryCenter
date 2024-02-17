@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeScreen extends AppCompatActivity {
     ActivityHomeScreenBinding binding;
+    String email;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,20 @@ public class HomeScreen extends AppCompatActivity {
         binding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+
+        bundle = new Bundle();
+
+        bundle.putString("email", email);
+        DevicesFragment devicesFragment = new DevicesFragment();
+        devicesFragment.setArguments(bundle);
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setArguments(bundle);
+        QrScanFragment qrScanFragment = new QrScanFragment();
+        qrScanFragment.setArguments(bundle);
+
+        replaceFragment(devicesFragment);
         binding.homeScreenNavBar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -34,17 +51,17 @@ public class HomeScreen extends AppCompatActivity {
 
                 if (itemId == R.id.profile) {
 
-                    replaceFragment(new ProfileFragment());
+                    replaceFragment(profileFragment);
                     return true;
 
                 } else if (itemId == R.id.qrScan) {
 
-                    replaceFragment(new QrScanFragment());
+                    replaceFragment(qrScanFragment);
                     return true;
 
                 } else if (itemId == R.id.devices) {
 
-                    replaceFragment(new DevicesFragment());
+                    replaceFragment(devicesFragment);
                     return true;
                 }
             return false;

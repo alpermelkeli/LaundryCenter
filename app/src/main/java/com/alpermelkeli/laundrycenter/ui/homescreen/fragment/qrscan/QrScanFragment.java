@@ -28,7 +28,6 @@ public class QrScanFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentQrScanBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        Toast.makeText(getActivity(),"qrScan",Toast.LENGTH_SHORT).show();
         binding.scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

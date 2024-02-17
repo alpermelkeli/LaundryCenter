@@ -61,7 +61,6 @@ public class DevicesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Toast.makeText(getActivity(),"devices",Toast.LENGTH_SHORT).show();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_devices, container, false);
     }

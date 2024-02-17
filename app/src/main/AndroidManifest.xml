@@ -22,7 +22,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.homescreen.fragment.qrscan.QrScanningActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait"
+            tools:replace="screenOrientation"
+            />
         <activity
             android:name=".ui.homescreen.HomeScreen"
             android:exported="false" />
