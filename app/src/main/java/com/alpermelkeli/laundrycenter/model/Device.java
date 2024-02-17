@@ -1,11 +1,22 @@
 package com.alpermelkeli.laundrycenter.model;
 
 public class Device {
+    String name;
+
+
+
     String id;
     String channel;
     long start;
     long time;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getId() {
         return id;
     }

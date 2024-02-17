@@ -59,6 +59,7 @@ public class DeviceRepository {
                                 newDevice.setId(document.getString("id"));
                                 newDevice.setChannel(document.getString("channel"));
                                 newDevice.setTime(document.getLong("time"));
+                                newDevice.setName(document.getString("name"));
                                 newDevice.setStart(document.getLong("start"));
                                 deviceList.add(newDevice);
 

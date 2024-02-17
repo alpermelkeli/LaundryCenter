@@ -1,6 +1,7 @@
 package com.alpermelkeli.laundrycenter.ui.homescreen.fragment.devices.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,14 +37,15 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
     public void onBindViewHolder(@NonNull DeviceViewHolder holder, int position) {
         Device device = deviceList.get(position);
         long durationInMillis = device.getTime() - (System.currentTimeMillis() - device.getStart());
-        // Device ID'sini ayarla
-        holder.deviceIdTextView.setText(device.getId());
+        holder.deviceIdTextView.setText("No: " + device.getName());
 
         if (durationInMillis > 0) {
-            holder.statusTextView.setText("Online");
+            holder.statusTextView.setText("Çalışıyor");
+            holder.statusTextView.setTextColor(Color.RED);
             startCountDownTimer(holder.remainingTimeTextView, durationInMillis);
         } else {
-            holder.statusTextView.setText("Offline");
+            holder.statusTextView.setText("Uygun");
+            holder.statusTextView.setTextColor(Color.GREEN);
             holder.remainingTimeTextView.setText("");
         }
     }
@@ -66,7 +68,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
         }
     }
 
-    // Geri sayım zamanlayıcısını başlat
     private void startCountDownTimer(final TextView textView, long durationInMillis) {
         CountDownTimer countDownTimer = new CountDownTimer(durationInMillis, 1000) {
             @Override

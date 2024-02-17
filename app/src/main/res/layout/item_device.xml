@@ -1,51 +1,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
+    android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/profile_card_background"
+    android:gravity="center"
     android:padding="8dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
         android:src="@drawable/device_icon"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:scaleType="centerCrop"
+        android:layout_gravity="center"
          />
 
 
     <TextView
         android:id="@+id/device_id_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="3dp"
+
+        android:fontFamily="@font/semibold"
+
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="DeviceID"
+        android:text="DeviceName"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textColor="@color/black" />
     <TextView
         android:id="@+id/status_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="3dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="DeviceID"
+        android:fontFamily="@font/semibold"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textColor="@color/black" />
     <TextView
         android:id="@+id/remaining_time_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/semibold"
+
         android:layout_gravity="center"
         android:gravity="center"
         android:text="DeviceID"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textColor="@color/black" />
 
 
