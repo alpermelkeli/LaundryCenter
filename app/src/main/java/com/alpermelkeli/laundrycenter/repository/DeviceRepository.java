@@ -42,7 +42,7 @@ public class DeviceRepository {
     }
 
     public void getDevicesByCompany(DevicesCallBack callBack, String company){
-
+        deviceList.clear();
         db.collection("Company")
                 .document(company)
                 .collection("Devices")

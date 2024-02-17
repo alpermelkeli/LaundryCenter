@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        android:src="@drawable/device_icon"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+         />
+
+
+    <TextView
+        android:id="@+id/device_id_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="DeviceID"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/status_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="DeviceID"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/remaining_time_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="DeviceID"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black" />
+
+
+</LinearLayout>

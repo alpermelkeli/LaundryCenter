@@ -42,6 +42,7 @@ public class DeviceViewModel extends ViewModel {
     }
     public void loadDeviceList(String company){
         deviceRepository.getDevicesByCompany(new DeviceRepository.DevicesCallBack() {
+
             @Override
             public void onSuccess(List<Device> deviceList) {
                 deviceListData.setValue(deviceList);
