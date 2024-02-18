@@ -52,6 +52,21 @@ public class UserViewModel extends ViewModel {
             }
         }, email);
 
+    }
+
+    public void updateUserBalance(String email, double newBalance){
+        userRepository.updateBalance(new UserRepository.UpdateBalanceCallBack() {
+            @Override
+            public void onSuccess(String success) {
+
+            }
+
+            @Override
+            public void onFailure(String fail) {
+                System.out.println(fail);
+            }
+        },email,newBalance);
+
 
     }
 

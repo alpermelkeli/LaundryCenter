@@ -108,6 +108,26 @@ public class UserRepository {
         });
     }
 
+    public void updateBalance(UpdateBalanceCallBack callBack, String email, double newBalance){
+        db.collection("Users")
+                .document(email)
+                .update("balance",newBalance)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                      if (task.isSuccessful()){
+                          callBack.onSuccess("Success");
+                      }
+                      else {
+                          callBack.onFailure(task.getException().toString());
+                      }
+                    }
+                });
+
+
+
+    }
+
 
     public interface CheckUserCallBack {
         void onSuccess(Boolean success);
@@ -124,6 +144,13 @@ public class UserRepository {
         void onRegistered(Boolean success);
 
         void onFailure(String fail);
+    }
+    public interface UpdateBalanceCallBack{
+
+        void onSuccess(String success);
+        void onFailure(String fail);
+
+
     }
 
 }

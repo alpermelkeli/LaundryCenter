@@ -8,11 +8,12 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class QrScanningActivity extends AppCompatActivity {
-
+    String email;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setOrientationLocked(false);
         integrator.setBeepEnabled(false);
@@ -32,6 +33,7 @@ public class QrScanningActivity extends AppCompatActivity {
             String scannedText = result.getContents();
             Intent intent = new Intent(QrScanningActivity.this, AfterScanActivity.class);
             intent.putExtra("scannedText",scannedText);
+            intent.putExtra("email",email);
             startActivity(intent);
 
         } else {
