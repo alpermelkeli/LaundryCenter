@@ -80,6 +80,24 @@ public class DeviceRepository {
 
 
     }
+    public void getPriceByCompany(CompanyPriceCallback callback, String company){
+        db.collection("Company")
+                .document(company)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            callback.onSuccess(document.getDouble("price"));
+                        }
+                        else {
+                            callback.onFailure(task.getException().toString());
+                        }
+                    }
+                });
+
+    }
 
     public interface DeviceCallBack{
 
@@ -91,6 +109,12 @@ public class DeviceRepository {
     public interface DevicesCallBack{
 
         void onSuccess(List<Device> deviceList);
+        void onFailure(String fail);
+
+    }
+    public interface CompanyPriceCallback{
+
+        void onSuccess(Double price);
         void onFailure(String fail);
 
     }

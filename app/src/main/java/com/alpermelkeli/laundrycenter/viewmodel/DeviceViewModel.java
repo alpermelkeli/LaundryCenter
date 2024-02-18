@@ -12,10 +12,12 @@ public class DeviceViewModel extends ViewModel {
     MutableLiveData<List<Device>> deviceListData;
     MutableLiveData<Device> deviceData;
     DeviceRepository deviceRepository;
+    MutableLiveData<Double> priceData;
 
     public DeviceViewModel(){
         this.deviceListData = new MutableLiveData<>();
         this.deviceData = new MutableLiveData<>();
+        this.priceData = new MutableLiveData<>();
         this.deviceRepository = new DeviceRepository();
     }
 
@@ -26,6 +28,7 @@ public class DeviceViewModel extends ViewModel {
     public LiveData<Device> getDeviceLiveData(){
         return deviceData;
     }
+    public LiveData<Double> getPriceLiveData(){return priceData;}
 
     public void loadDevice(String id, String company){
         deviceRepository.getDeviceByID(new DeviceRepository.DeviceCallBack() {
@@ -53,8 +56,19 @@ public class DeviceViewModel extends ViewModel {
 
             }
         },company);
+    }
+    public void loadPrice(String company){
+        deviceRepository.getPriceByCompany(new DeviceRepository.CompanyPriceCallback() {
+            @Override
+            public void onSuccess(Double price) {
+                priceData.setValue(price);
+            }
 
-
+            @Override
+            public void onFailure(String fail) {
+                System.out.println(fail);
+            }
+        },company);
     }
 
 
