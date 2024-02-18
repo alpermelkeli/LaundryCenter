@@ -11,16 +11,60 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
-        <Button
-            android:id="@+id/scanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:layout_width="393dp"
+            android:layout_height="785dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:layout_marginEnd="35dp"
+                android:fontFamily="@font/semibold"
+                android:gravity="center"
+                android:paddingStart="9dp"
+                android:text="Bir cihaza bağlanmak için
+    üzerindeki QR kodu okut;"
+                android:textColor="@color/white"
+                android:textSize="24dp" />
+
+            <ImageView
+                android:layout_width="320dp"
+                android:layout_height="306dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/instruction" />
+
+            <Button
+                android:id="@+id/scanButton"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="150dp"
+                android:text="QR Okut"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/register_button_background"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/semibold"
+            android:text="LaundryCenter"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
