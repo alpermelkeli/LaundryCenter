@@ -70,6 +70,31 @@ public class DeviceViewModel extends ViewModel {
             }
         },company);
     }
+    public void updateDeviceTime(String deviceID,String company,long newtime){
+        deviceRepository.updateDeviceTimeByID(new DeviceRepository.UpdateTimeCallBack() {
+            @Override
+            public void onSuccess(Boolean bool) {
+                System.out.println("Başarılıııı");
+            }
+
+            @Override
+            public void onFailure(String fail) {
+                System.out.println(fail);
+            }
+        },deviceID,company,newtime);
+
+
+    }
+    public void setDeviceTime(String id, String company, long time, long start){
+        deviceRepository.setDeviceTimeByID(new DeviceRepository.SetTimeCallBack() {
+            @Override
+            public void onSuccess(Boolean bool) {
+                System.out.println("BAŞARIIII");
+            }
+        },id,company,time,start);
+
+
+    }
 
 
 

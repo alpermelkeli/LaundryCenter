@@ -99,6 +99,40 @@ public class DeviceRepository {
 
     }
 
+    public void updateDeviceTimeByID(UpdateTimeCallBack callBack, String id,String company,long newTime){
+        db.collection("Company")
+                .document(company)
+                .collection("Devices")
+                .document(id)
+                .update("time",newTime)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            callBack.onSuccess(true);
+                        }
+                    }
+                });
+
+
+
+    }
+    public void setDeviceTimeByID(SetTimeCallBack callBack,String id,String company, long time, long start){
+        db.collection("Company")
+                .document(company)
+                .collection("Devices")
+                .document(id)
+                .update("time",time, "start",start)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            callBack.onSuccess(true);
+                        }
+                    }
+                });
+    }
+
     public interface DeviceCallBack{
 
         void onSuccess(Device device);
@@ -116,6 +150,18 @@ public class DeviceRepository {
 
         void onSuccess(Double price);
         void onFailure(String fail);
+
+    }
+    public interface UpdateTimeCallBack{
+
+        void onSuccess(Boolean bool);
+        void onFailure(String fail);
+
+
+    }
+    public interface SetTimeCallBack{
+
+        void onSuccess(Boolean bool);
 
     }
 
