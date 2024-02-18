@@ -27,13 +27,13 @@ public class DevicesFragment extends Fragment {
         binding = FragmentDevicesBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
-
+        binding.devicesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         deviceViewModel.getDeviceListLiveData().observe(getViewLifecycleOwner(), deviceList -> {
 
             DevicesAdapter devicesAdapter = new DevicesAdapter(deviceList);
-            binding.devicesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
             binding.devicesRecyclerView.setAdapter(devicesAdapter);
-
+            binding.devicesProgressBar.setVisibility(View.GONE);
+            binding.devicesConstraint.setVisibility(View.VISIBLE);
         });
 
 

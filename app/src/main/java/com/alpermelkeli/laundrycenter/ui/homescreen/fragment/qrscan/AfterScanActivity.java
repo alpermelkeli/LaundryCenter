@@ -19,6 +19,9 @@ public class AfterScanActivity extends AppCompatActivity {
         setContentView(view);
         Intent intent = getIntent();
         String scannedText = intent.getStringExtra("scannedText");
+
+
+
         binding.scannedText.setText(scannedText);
 
     }

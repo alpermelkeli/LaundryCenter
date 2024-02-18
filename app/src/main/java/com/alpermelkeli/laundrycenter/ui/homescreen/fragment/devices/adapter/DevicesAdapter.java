@@ -42,7 +42,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
         if (durationInMillis > 0) {
             holder.statusTextView.setText("Çalışıyor");
             holder.statusTextView.setTextColor(Color.RED);
-            startCountDownTimer(holder.remainingTimeTextView, durationInMillis);
+            startCountDownTimer(holder.remainingTimeTextView,holder.statusTextView,durationInMillis);
         } else {
             holder.statusTextView.setText("Uygun");
             holder.statusTextView.setTextColor(Color.GREEN);
@@ -68,7 +68,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
         }
     }
 
-    private void startCountDownTimer(final TextView textView, long durationInMillis) {
+    private void startCountDownTimer(final TextView textView, final TextView statusText ,long durationInMillis) {
         CountDownTimer countDownTimer = new CountDownTimer(durationInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -81,6 +81,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
             @Override
             public void onFinish() {
                 textView.setText("00:00:00");
+                statusText.setTextColor(Color.GREEN);
+                statusText.setText("Uygun");
             }
         };
         countDownTimer.start();

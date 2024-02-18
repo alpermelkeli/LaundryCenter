@@ -6,10 +6,19 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".ui.homescreen.fragment.devices.DevicesFragment">
-
+    <ProgressBar
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:id="@+id/devicesProgressBar"
+        android:visibility="visible"
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/devicesConstraint"
+        android:visibility="gone"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/devicesRecyclerView"

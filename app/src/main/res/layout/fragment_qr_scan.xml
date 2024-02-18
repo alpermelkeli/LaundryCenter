@@ -15,15 +15,19 @@
         android:background="@color/background">
 
         <LinearLayout
-            android:layout_width="393dp"
-            android:layout_height="785dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="140dp"
-                android:layout_marginEnd="35dp"
                 android:fontFamily="@font/semibold"
                 android:gravity="center"
                 android:paddingStart="9dp"
@@ -39,15 +43,18 @@
                 android:layout_marginTop="50dp"
                 android:src="@drawable/instruction" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/scanButton"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:layout_marginStart="150dp"
+                android:background="@drawable/register_button_background"
                 android:text="QR Okut"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/register_button_background"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                />
 
         </LinearLayout>
 
