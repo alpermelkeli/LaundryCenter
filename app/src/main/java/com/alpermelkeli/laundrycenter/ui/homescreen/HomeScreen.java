@@ -27,12 +27,19 @@ public class HomeScreen extends AppCompatActivity {
     Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
+
         View view = binding.getRoot();
+
         setContentView(view);
+
         Intent intent = getIntent();
+
         email = intent.getStringExtra("email");
 
         bundle = new Bundle();

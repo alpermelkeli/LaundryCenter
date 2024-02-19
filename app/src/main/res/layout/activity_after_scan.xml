@@ -9,6 +9,7 @@
     >
 
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/afterScanProgressBar"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -25,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
+        android:visibility="visible"
         >
         <TextView
             android:layout_width="match_parent"
@@ -50,8 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:text="Cihaz Bilgileri"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/black"
+                android:paddingStart="8dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/semibold"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -60,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:text="Device ID: 12345"
+                android:paddingStart="8dp"
                 android:fontFamily="@font/semibold"
                 android:layout_marginTop="4dp"
                 android:id="@+id/afterScanDeviceID"
@@ -71,7 +73,7 @@
                 android:layout_height="20dp"
                 android:text="Çalışıyor"
                 android:fontFamily="@font/semibold"
-
+                android:paddingStart="8dp"
                 android:layout_marginTop="4dp"
                 android:id="@+id/afterScanDeviceStatus"
                 android:textColor="@color/black"
@@ -82,7 +84,7 @@
                 android:layout_height="20dp"
                 android:text="00:00:50"
                 android:fontFamily="@font/semibold"
-
+                android:paddingStart="8dp"
                 android:layout_marginTop="4dp"
                 android:id="@+id/afterScanDeviceTime"
                 android:textColor="@color/black"
@@ -119,7 +121,7 @@
 
         <LinearLayout
             android:layout_width="343dp"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/profile_card_background"
@@ -147,18 +149,18 @@
         <LinearLayout
             android:id="@+id/paymentButton"
             android:layout_width="343dp"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/profile_card_background"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:text="Ödeme"
                 android:textAlignment="center"
-                android:layout_marginTop="25dp"
+                android:layout_gravity="center_vertical"
                 android:textStyle="bold"
                 android:fontFamily="@font/semibold"
                 />

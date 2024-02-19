@@ -41,11 +41,11 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
 
         if (durationInMillis > 0) {
             holder.statusTextView.setText("Çalışıyor");
-            holder.statusTextView.setTextColor(Color.RED);
+            holder.statusTextView.setTextColor(Color.parseColor("#D23C1B"));
             startCountDownTimer(holder.remainingTimeTextView,holder.statusTextView,durationInMillis);
         } else {
             holder.statusTextView.setText("Uygun");
-            holder.statusTextView.setTextColor(Color.GREEN);
+            holder.statusTextView.setTextColor(Color.parseColor("#08831C"));
             holder.remainingTimeTextView.setText("");
         }
     }
@@ -81,7 +81,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
             @Override
             public void onFinish() {
                 textView.setText("");
-                statusText.setTextColor(Color.GREEN);
+                statusText.setTextColor(Color.parseColor("#08831C"));
                 statusText.setText("Uygun");
             }
         };

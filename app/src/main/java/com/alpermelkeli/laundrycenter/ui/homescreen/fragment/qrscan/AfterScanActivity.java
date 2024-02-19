@@ -1,15 +1,19 @@
 package com.alpermelkeli.laundrycenter.ui.homescreen.fragment.qrscan;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +23,8 @@ import com.alpermelkeli.laundrycenter.plugAPI.TurnOnOff;
 import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
 import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 public class AfterScanActivity extends AppCompatActivity {
@@ -44,6 +50,10 @@ public class AfterScanActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+        binding.timePicker.setHour(0);
+        binding.timePicker.setMinute(0);
+
         turnOnOff = new TurnOnOff();
 
         binding.timePicker.setIs24HourView(true);
@@ -63,42 +73,64 @@ public class AfterScanActivity extends AppCompatActivity {
 
         //Get selected time and do payment by using this data and take balance of user before this
         userViewModel.getUserLiveData().observe(this, user -> {
-
             balance = user.getBalance();
 
             binding.paymentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     int hour, minute;
 
                     if (Build.VERSION.SDK_INT >= 23) {
-
                         hour = binding.timePicker.getHour();
                         minute = binding.timePicker.getMinute();
 
-                        if(durationInMillis>0){
-                            paymentAndAddTimeToDevice(hour*60+minute);
-                        }
-                        else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-                            paymentAndCreateNewSession(hour*60+minute);
-                        }
+                        LayoutInflater inflater = getLayoutInflater();
 
+                        View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+                        builder.setView(dialogView);
+
+                        TextView message = dialogView.findViewById(R.id.dialog_message);
+                        message.setText("İşlemi onaylıyor musunuz?");
+
+                        Button positiveButton = dialogView.findViewById(R.id.positive_button);
+
+                        AlertDialog alertDialog = builder.create();
+                        positiveButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Evet butonuna tıklama işlemi
+                                if (durationInMillis > 0) {
+                                    paymentAndAddTimeToDevice(hour * 60 + minute);
+                                } else {
+                                    paymentAndCreateNewSession(hour * 60 + minute);
+                                }
+                                alertDialog.dismiss(); // AlertDialog'u kapat
+                            }
+                        });
+
+                        Button negativeButton = dialogView.findViewById(R.id.negative_button);
+                        negativeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Hayır butonuna tıklama işlemi
+                                alertDialog.dismiss(); // AlertDialog'u kapat
+                            }
+                        });
+
+
+                        alertDialog.show();
                     }
-
-
-
                 }
             });
-
-
         });
+
 
         //Get fields of device to show user.
         deviceViewModel.getDeviceLiveData().observe(this, device -> {
 
-            binding.afterScanDeviceID.setText(device.getId());
+            binding.afterScanDeviceID.setText("Cihaz numarası: " + device.getName());
 
             durationInMillis = device.getTime() - (System.currentTimeMillis() - device.getStart());
 
@@ -106,14 +138,14 @@ public class AfterScanActivity extends AppCompatActivity {
 
                 binding.afterScanDeviceStatus.setText("Çalışıyor");
 
-                binding.afterScanDeviceStatus.setTextColor(Color.RED);
+                binding.afterScanDeviceStatus.setTextColor(Color.parseColor("#D23C1B"));
 
                 startCountDownTimer(binding.afterScanDeviceTime,binding.afterScanDeviceStatus,durationInMillis);
 
             } else {
                 binding.afterScanDeviceStatus.setText("Uygun");
 
-                binding.afterScanDeviceStatus.setTextColor(Color.GREEN);
+                binding.afterScanDeviceStatus.setTextColor(Color.parseColor("#08831C"));
 
                 binding.afterScanDeviceTime.setText("");
             }
@@ -139,9 +171,14 @@ public class AfterScanActivity extends AppCompatActivity {
     private Boolean getPaymentFromUser(int minute,double userBalance){
 
         double price = (priceData/60)*minute;
-        price = Math.round(price * 100);
-        price = price/100;
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+        decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+
         double newBalance = userBalance-price;
+
+        newBalance = Double.parseDouble(decimalFormat.format(newBalance));
 
         if(newBalance<0){
             Toast.makeText(getApplicationContext(), "Bakiye Yetersiz", Toast.LENGTH_SHORT).show();
