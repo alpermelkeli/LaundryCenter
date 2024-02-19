@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentRegisterPasswordBinding;
@@ -30,12 +31,19 @@ public class RegisterPasswordFragment extends Fragment {
         binding.passwordNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String password = binding.registerPasswordlInput.getText().toString();
-                bundle.putString("password", password);
-                // TODO transfer data to RegisterCompanyFragment with bundle and replaceFragment.
-                RegisterCompanyFragment registerCompanyFragment = new RegisterCompanyFragment();
-                registerCompanyFragment.setArguments(bundle);
-                replaceFragment(registerCompanyFragment);
+
+                if(password!=null){
+                    bundle.putString("password", password);
+                    RegisterCompanyFragment registerCompanyFragment = new RegisterCompanyFragment();
+                    registerCompanyFragment.setArguments(bundle);
+                    replaceFragment(registerCompanyFragment);
+                }
+                else {
+                    Toast.makeText(getActivity(),"Lütfen geçerli bir şifre girin", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         binding.passwordPageBackButton.setOnClickListener(new View.OnClickListener() {

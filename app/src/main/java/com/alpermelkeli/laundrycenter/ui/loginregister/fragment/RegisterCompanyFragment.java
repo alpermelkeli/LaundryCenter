@@ -14,12 +14,16 @@ import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentRegisterCompanyBinding;
+import com.alpermelkeli.laundrycenter.repository.CompanyRepository;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
+
+import java.util.List;
 
 
 public class RegisterCompanyFragment extends Fragment {
-
+    private CompanyRepository companyRepository;
     private String selectedSchool= null;
+    private List<String> companiesData;
     FragmentRegisterCompanyBinding binding;
     public RegisterCompanyFragment() {
 
@@ -34,9 +38,31 @@ public class RegisterCompanyFragment extends Fragment {
         binding = FragmentRegisterCompanyBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
+        companyRepository = new CompanyRepository();
 
-        // TODO GET COMPANY FROM FIREBASE
-        String[] schools = {"BeytepeKYK","BeytepeErkek"};
+
+
+        companyRepository.getCompanies(new CompanyRepository.CompaniesCallBack() {
+            @Override
+            public void onSuccess(List<String> companies) {
+                companiesData = companies;
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, companiesData);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.companySpinner.setAdapter(adapter);
+                binding.companySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedSchool = companiesData.get(i);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+            }
+        });
+
 
 
 
@@ -49,20 +75,7 @@ public class RegisterCompanyFragment extends Fragment {
         String password = bundle.getString("password");
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, schools);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.companySpinner.setAdapter(adapter);
-        binding.companySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedSchool = schools[i];
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         binding.companyNextButton.setOnClickListener(new View.OnClickListener() {
             @Override

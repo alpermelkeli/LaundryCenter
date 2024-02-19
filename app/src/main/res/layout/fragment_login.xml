@@ -80,7 +80,7 @@
                 android:background="@drawable/login_button_background"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Parolanı gir..."
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:paddingStart="18dp"
                 android:textAllCaps="false"
                 android:textColor="@color/black"

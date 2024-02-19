@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentRegisterEmailBinding;
@@ -36,11 +38,19 @@ public class RegisterEmailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String email = binding.registerEmailInput.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("email", email);
-                RegisterPasswordFragment registerPasswordFragment = new RegisterPasswordFragment();
-                registerPasswordFragment.setArguments(bundle);
-                replaceFragment(registerPasswordFragment);
+                // Check whether email valid.
+                if(email!=null & Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email", email);
+                    RegisterPasswordFragment registerPasswordFragment = new RegisterPasswordFragment();
+                    registerPasswordFragment.setArguments(bundle);
+                    replaceFragment(registerPasswordFragment);
+                }
+                else {
+                    Toast.makeText(getActivity(),"Lütfen geçerli bir email girin.",Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
