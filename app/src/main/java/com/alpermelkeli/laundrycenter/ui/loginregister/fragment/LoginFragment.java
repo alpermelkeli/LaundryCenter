@@ -1,6 +1,8 @@
 package com.alpermelkeli.laundrycenter.ui.loginregister.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,12 @@ public class LoginFragment extends Fragment {
                 userRepository.checkUser(new UserRepository.CheckUserCallBack() {
                     @Override
                     public void onSuccess(Boolean success) {
+
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", email);
+                        editor.putString("password", password);
+                        editor.apply();
 
                         Toast.makeText(getActivity(), "Giriş Başarılı", Toast.LENGTH_LONG).show();
 

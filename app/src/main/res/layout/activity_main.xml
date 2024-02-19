@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.loginregister.MainActivity">
 
+    <ProgressBar
+        android:id="@+id/mainProgress"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mainFrameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/mainFrameLayout"
         android:layout_width="match_parent"

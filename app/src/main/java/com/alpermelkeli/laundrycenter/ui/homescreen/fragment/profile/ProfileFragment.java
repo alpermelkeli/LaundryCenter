@@ -1,7 +1,9 @@
 package com.alpermelkeli.laundrycenter.ui.homescreen.fragment.profile;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.content.SharedPreferences;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentProfileBinding;
+import com.alpermelkeli.laundrycenter.ui.loginregister.MainActivity;
 import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 
@@ -61,6 +64,19 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("email");
+                editor.remove("password");
+                editor.apply();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
 
         userViewModel.getUser(email);
 
