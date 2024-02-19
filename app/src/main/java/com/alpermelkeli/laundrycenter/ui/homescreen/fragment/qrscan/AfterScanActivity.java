@@ -139,7 +139,8 @@ public class AfterScanActivity extends AppCompatActivity {
     private Boolean getPaymentFromUser(int minute,double userBalance){
 
         double price = (priceData/60)*minute;
-
+        price = Math.round(price * 100);
+        price = price/100;
         double newBalance = userBalance-price;
 
         if(newBalance<0){

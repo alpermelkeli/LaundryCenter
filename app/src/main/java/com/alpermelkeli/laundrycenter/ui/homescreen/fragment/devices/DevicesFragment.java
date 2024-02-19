@@ -15,31 +15,41 @@ import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentDevicesBinding;
 import com.alpermelkeli.laundrycenter.ui.homescreen.fragment.devices.adapter.DevicesAdapter;
 import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
+import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 
 public class DevicesFragment extends Fragment {
     FragmentDevicesBinding binding;
     DeviceViewModel deviceViewModel;
+    UserViewModel userViewModel;
+    String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDevicesBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
+        Bundle bundle = getArguments();
+        email = bundle.getString("email");
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         binding.devicesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        deviceViewModel.getDeviceListLiveData().observe(getViewLifecycleOwner(), deviceList -> {
 
-            DevicesAdapter devicesAdapter = new DevicesAdapter(deviceList);
-            binding.devicesRecyclerView.setAdapter(devicesAdapter);
-            binding.devicesProgressBar.setVisibility(View.GONE);
-            binding.devicesConstraint.setVisibility(View.VISIBLE);
+        userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
+
+            deviceViewModel.loadDeviceList(user.getCompany());
+            deviceViewModel.getDeviceListLiveData().observe(getViewLifecycleOwner(), deviceList -> {
+
+                DevicesAdapter devicesAdapter = new DevicesAdapter(deviceList);
+                binding.devicesRecyclerView.setAdapter(devicesAdapter);
+                binding.devicesProgressBar.setVisibility(View.GONE);
+                binding.devicesConstraint.setVisibility(View.VISIBLE);
+            });
+
         });
 
 
-        // TODO Transfer data and get BeytepeErkek from db
-        deviceViewModel.loadDeviceList("BeytepeErkek");
-
+        userViewModel.getUser(email);
         return view;
     }
 }

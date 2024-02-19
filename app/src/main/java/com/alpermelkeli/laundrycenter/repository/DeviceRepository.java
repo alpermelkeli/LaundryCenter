@@ -16,7 +16,6 @@ import java.util.List;
 public class DeviceRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Device device = new Device();
-    List<Device> deviceList = new ArrayList<>();
 
     public void getDeviceByID(DeviceCallBack callBack, String id,String company) {
 
@@ -43,7 +42,7 @@ public class DeviceRepository {
     }
 
     public void getDevicesByCompany(DevicesCallBack callBack, String company){
-        deviceList.clear();
+
         db.collection("Company")
                 .document(company)
                 .collection("Devices")
@@ -52,7 +51,7 @@ public class DeviceRepository {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
+                        List<Device> deviceList = new ArrayList<>();
                         if(task.isSuccessful()){
 
                             QuerySnapshot querySnapshot = task.getResult();
