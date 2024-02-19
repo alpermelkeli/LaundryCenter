@@ -80,7 +80,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
 
             @Override
             public void onFinish() {
-                textView.setText("00:00:00");
+                textView.setText("");
                 statusText.setTextColor(Color.GREEN);
                 statusText.setText("Uygun");
             }

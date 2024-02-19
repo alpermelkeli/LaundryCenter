@@ -122,7 +122,7 @@ public class DeviceRepository {
                 .document(company)
                 .collection("Devices")
                 .document(id)
-                .update("time",time, "start",start)
+                .update("time",time, "start",start,"status","on")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

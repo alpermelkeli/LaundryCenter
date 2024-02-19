@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.ActivityAfterScanBinding;
+import com.alpermelkeli.laundrycenter.plugAPI.TurnOnOff;
 import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
 import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 import java.util.concurrent.TimeUnit;
 
 public class AfterScanActivity extends AppCompatActivity {
+    TurnOnOff turnOnOff;
     DeviceViewModel deviceViewModel;
     UserViewModel userViewModel;
     ActivityAfterScanBinding binding;
@@ -42,6 +44,8 @@ public class AfterScanActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        turnOnOff = new TurnOnOff();
+
         binding.timePicker.setIs24HourView(true);
 
         deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
@@ -54,8 +58,10 @@ public class AfterScanActivity extends AppCompatActivity {
 
         email = intent.getStringExtra("email");
 
+        //id,company,channel
         scanData = scannedText.split(",");
 
+        //Get selected time and do payment by using this data and take balance of user before this
         userViewModel.getUserLiveData().observe(this, user -> {
 
             balance = user.getBalance();
@@ -89,6 +95,7 @@ public class AfterScanActivity extends AppCompatActivity {
 
         });
 
+        //Get fields of device to show user.
         deviceViewModel.getDeviceLiveData().observe(this, device -> {
 
             binding.afterScanDeviceID.setText(device.getId());
@@ -110,12 +117,15 @@ public class AfterScanActivity extends AppCompatActivity {
 
                 binding.afterScanDeviceTime.setText("");
             }
+
+            binding.afterScanProgressBar.setVisibility(View.GONE);
+            binding.afterScanLinear.setVisibility(View.VISIBLE);
         });
 
+
+        //Get Price Of Device
         deviceViewModel.getPriceLiveData().observe(this, price -> {
-
             priceData = price;
-
             binding.priceText.setText(price.toString()+"TL/saat");
         });
 
@@ -157,7 +167,7 @@ public class AfterScanActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                textView.setText("00:00:00");
+                textView.setText("");
                 statusText.setTextColor(Color.GREEN);
                 statusText.setText("Uygun");
             }
@@ -189,7 +199,7 @@ public class AfterScanActivity extends AppCompatActivity {
         if(getPaymentFromUser(minute,balance)){
             deviceViewModel.setDeviceTime(scanData[0],scanData[1],timeMillis,System.currentTimeMillis());
             Toast.makeText(AfterScanActivity.this, "Ödeme başarılı, makineyi kullanabilirsiniz", Toast.LENGTH_SHORT).show();
-
+            turnOnOff.sendDeviceControl(scanData[0],"MjE3OTdhdWlk598FB7E13A0F9D9EB9660D10F8A818B8588B9AC0D5FB6AE26E0BADE57B1EC1D4817B7BE91AF82CA2",scanData[2],"on");
             finish();
         }
 
