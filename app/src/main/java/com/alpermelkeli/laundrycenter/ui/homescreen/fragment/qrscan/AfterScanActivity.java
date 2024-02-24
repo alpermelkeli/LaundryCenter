@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -180,13 +179,15 @@ public class AfterScanActivity extends AppCompatActivity {
 
         newBalance = Double.parseDouble(decimalFormat.format(newBalance));
 
+        price = Double.parseDouble(decimalFormat.format(price));
+
         if(newBalance<0){
             Toast.makeText(getApplicationContext(), "Bakiye Yetersiz", Toast.LENGTH_SHORT).show();
             return false;
         }
         else {
             userViewModel.updateUserBalance(email,newBalance);
-            //Get user again with new balance of user
+            userViewModel.addHistory(email,System.currentTimeMillis(),price);
             userViewModel.getUser(email);
             return true;
         }

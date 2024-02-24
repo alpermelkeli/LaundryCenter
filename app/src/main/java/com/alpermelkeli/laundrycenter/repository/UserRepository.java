@@ -8,11 +8,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.List;
 public class UserRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     User user = new User();
@@ -63,6 +69,7 @@ public class UserRepository {
                             user.setBalance(document.getDouble("balance"));
                             user.setEmail(document.getString("email"));
                             user.setCompany(document.getString("company"));
+                            user.setHistory((List<String>) document.get("history"));
                             callBack.onUserLoaded(user);
 
                         }
@@ -93,6 +100,7 @@ public class UserRepository {
                         newUser.put("password",password);
                         newUser.put("company", company);
                         newUser.put("balance", 0);
+                        newUser.put("history", FieldValue.arrayUnion());
                         docRef.set(newUser);
                         callBack.onRegistered(true);
                     }
@@ -128,6 +136,29 @@ public class UserRepository {
 
     }
 
+    public void addHistory(AddHistoryCallBack callBack,String email,long time, double amount){
+        String date = millis_to_date(time);
+        db.collection("Users")
+                .document(email)
+                .update("history", FieldValue.arrayUnion(date+","+amount))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            callBack.onSuccess("Succes added history");
+
+                        }
+                    }
+                });
+    }
+    public String millis_to_date(long time){
+        DateFormat obj = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        Date res = new Date(time);
+        return obj.format(res);
+
+    }
+
+
 
     public interface CheckUserCallBack {
         void onSuccess(Boolean success);
@@ -152,5 +183,10 @@ public class UserRepository {
 
 
     }
+    public interface AddHistoryCallBack{
 
+        void onSuccess(String success);
+
+
+    }
 }

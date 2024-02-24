@@ -67,6 +67,15 @@ public class UserViewModel extends ViewModel {
             }
         },email,newBalance);
 
+    }
+    public void addHistory(String email, long time, double amount){
+        userRepository.addHistory(new UserRepository.AddHistoryCallBack() {
+            @Override
+            public void onSuccess(String success) {
+
+            }
+        },email,time,amount);
+
 
     }
 

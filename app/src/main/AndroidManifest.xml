@@ -18,14 +18,16 @@
         android:theme="@style/Theme.LaundryCenter"
         tools:targetApi="31">
         <activity
+            android:name=".ui.homescreen.fragment.profile.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.homescreen.fragment.qrscan.AfterScanActivity"
             android:exported="false" />
         <activity
             android:name=".ui.homescreen.fragment.qrscan.QrScanningActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait"
-            tools:replace="screenOrientation"
-            />
+            tools:replace="screenOrientation" />
         <activity
             android:name=".ui.homescreen.HomeScreen"
             android:exported="false" />
