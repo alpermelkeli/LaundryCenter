@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +11,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.alpermelkeli.laundrycenter.R;
+import com.alpermelkeli.laundrycenter.TimeAPI.TimeApi;
 import com.alpermelkeli.laundrycenter.databinding.ActivityMainBinding;
-import com.alpermelkeli.laundrycenter.model.Device;
-import com.alpermelkeli.laundrycenter.model.User;
-import com.alpermelkeli.laundrycenter.repository.DeviceRepository;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
 import com.alpermelkeli.laundrycenter.ui.homescreen.HomeScreen;
 import com.alpermelkeli.laundrycenter.ui.loginregister.fragment.LoginRegisterFragment;
@@ -29,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private LoginRegisterFragment loginRegisterFragment;
-    DeviceViewModel deviceViewModel;
+    private TimeApi timeApi;
 
-    // SharedPreferences anahtarları
     private static final String PREF_NAME = "MyPrefs";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final long TIME_THRESHOLD = 60000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +41,40 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        timeApi = new TimeApi();
+        timeApi.getCurrentTimeMillis(new TimeApi.OnTimeReceivedListener() {
+            @Override
+            public void onTimeReceived(long timeMillis) {
+                long currentTime = System.currentTimeMillis();
+                if (Math.abs(currentTime - timeMillis) > TIME_THRESHOLD) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(MainActivity.this, "Telefonunuzun saat ayarını yapın.", Toast.LENGTH_LONG).show();
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        loginRegisterFragment = new LoginRegisterFragment();
+                        autoLogin();
+                    });
+                }
+            }
 
-        loginRegisterFragment = new LoginRegisterFragment();
+            @Override
+            public void onError(Exception e) {
+                runOnUiThread(() -> {
 
-
-        autoLogin();
-
-
+                });
+            }
+        });
     }
+
+
+
 
     private void autoLogin() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String email = sharedPreferences.getString(KEY_EMAIL, "");
         String password = sharedPreferences.getString(KEY_PASSWORD, "");
 
-        // Eğer e-posta ve şifre doluysa otomatik giriş yap
         if (!email.isEmpty() && !password.isEmpty()) {
             login(email, password);
         }

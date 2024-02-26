@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/profile_card_background"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -10,14 +9,15 @@
         android:id="@+id/dialog_message_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="İşlemi onaylıyor musunuz?"
+        android:textAlignment="center"
+        android:text="26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n26 Feb 2024 15:32,0.04 TL\n"
         android:textColor="@android:color/black"
         android:fontFamily="@font/semibold"
-        android:textSize="18sp"
+        android:textSize="21sp"
+        android:lineSpacingExtra="20dp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
-    <!-- İstediğiniz diğer bileşenleri buraya ekleyebilirsiniz -->
 
-</LinearLayout>
+</ScrollView>

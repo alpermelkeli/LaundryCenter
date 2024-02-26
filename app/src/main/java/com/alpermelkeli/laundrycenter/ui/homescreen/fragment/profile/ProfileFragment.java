@@ -2,6 +2,7 @@ package com.alpermelkeli.laundrycenter.ui.homescreen.fragment.profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.content.SharedPreferences;
 
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
+import com.alpermelkeli.laundrycenter.databinding.DialogHistoryBinding;
 import com.alpermelkeli.laundrycenter.databinding.FragmentProfileBinding;
+import com.alpermelkeli.laundrycenter.model.User;
 import com.alpermelkeli.laundrycenter.ui.loginregister.MainActivity;
 import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 import java.util.List;
@@ -54,13 +58,13 @@ public class ProfileFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
+
         if (bundle != null) {
             email = bundle.getString("email");
         }
+
         userViewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> {
-            binding.profileBalanceText.setText(user.getBalance().toString()+" ₺");
-            binding.profileIDText.setText(user.getEmail());
-            history = user.getHistory();
+            getDataFromViewModel(user);
             binding.profileProgressBar.setVisibility(View.GONE);
             binding.profileConstraint.setVisibility(View.VISIBLE);
         });
@@ -76,52 +80,13 @@ public class ProfileFragment extends Fragment {
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("email");
-                editor.remove("password");
-                editor.apply();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                logout();
             }
         });
         binding.useHistoryProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
-// LayoutInflater ile custom layout dosyasını yükleyin
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.dialog_history, null);
-                builder.setView(dialogView);
-
-                AlertDialog alertDialog = builder.create();
-
-                Window window = alertDialog.getWindow();
-                if (window != null) {
-                    WindowManager.LayoutParams layoutParams = window.getAttributes();
-
-                    layoutParams.gravity = Gravity.BOTTOM;
-                    layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-
-                    window.setAttributes(layoutParams);
-                }
-
-                TextView message = dialogView.findViewById(R.id.dialog_message_history);
-                if (history.toString() != null){
-                    message.setText(history.toString());
-
-                }
-                else {
-                    message.setText("Hesap Oluşturuldu");
-                }
-
-                alertDialog.show();
-
-
-
+                createAlertDialog();
             }
         });
 
@@ -130,5 +95,71 @@ public class ProfileFragment extends Fragment {
         return view;
 
     }
+    public void logout(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("email");
+        editor.remove("password");
+        editor.apply();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
+    public void createAlertDialog(){
+        DialogHistoryBinding bindingDialog;
+
+        bindingDialog = DialogHistoryBinding.inflate(getLayoutInflater());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(binding.getRoot().getContext());
+
+        View dialogView = bindingDialog.getRoot();
+
+        builder.setView(dialogView);
+
+        AlertDialog alertDialog = builder.create();
+
+        Window window = alertDialog.getWindow();
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+
+        layoutParams.copyFrom(alertDialog.getWindow().getAttributes());
+
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+
+        layoutParams.gravity = Gravity.BOTTOM;
+
+        window.setAttributes(layoutParams);
+
+        dialogView.setBackgroundColor(Color.TRANSPARENT);
+
+        TextView message = bindingDialog.dialogMessageHistory;
+
+        if (history != null){
+
+            StringBuilder sb = new StringBuilder();
+
+            for(String i : history){
+                sb.append(i);
+                sb.append(" ₺ \uD83D\uDCB8");
+                sb.append("\n");
+            }
+
+            message.setText(sb);
+
+        } else {
+            message.setText("Hesap Oluşturuldu");
+        }
+        alertDialog.show();
+
+
+    }
+
+    public void getDataFromViewModel(User user){
+        binding.profileBalanceText.setText(user.getBalance().toString()+" ₺");
+        binding.profileIDText.setText(user.getEmail());
+        history = user.getHistory();
+        binding.profileProgressBar.setVisibility(View.GONE);
+        binding.profileConstraint.setVisibility(View.VISIBLE);
+    }
 }

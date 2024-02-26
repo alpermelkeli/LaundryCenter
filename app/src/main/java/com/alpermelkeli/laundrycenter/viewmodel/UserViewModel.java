@@ -54,6 +54,8 @@ public class UserViewModel extends ViewModel {
 
     }
 
+
+
     public void updateUserBalance(String email, double newBalance){
         userRepository.updateBalance(new UserRepository.UpdateBalanceCallBack() {
             @Override

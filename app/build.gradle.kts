@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation("commons-net:commons-net:3.7")
     implementation ("org.jsoup:jsoup:1.11.1")
     implementation("com.google.zxing:core:3.4.0")
     implementation("com.journeyapps:zxing-android-embedded:3.6.0")

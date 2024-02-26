@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentRegisterCompanyBinding;
 import com.alpermelkeli.laundrycenter.repository.CompanyRepository;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
+import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class RegisterCompanyFragment extends Fragment {
     private String selectedSchool= null;
     private List<String> companiesData;
     FragmentRegisterCompanyBinding binding;
+    UserViewModel userViewModel;
     public RegisterCompanyFragment() {
 
 
@@ -39,7 +42,7 @@ public class RegisterCompanyFragment extends Fragment {
 
         View view = binding.getRoot();
         companyRepository = new CompanyRepository();
-
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
 
         companyRepository.getCompanies(new CompanyRepository.CompaniesCallBack() {
@@ -85,23 +88,18 @@ public class RegisterCompanyFragment extends Fragment {
                 }
                 else {
 
-                    // There is no need to viewmodel because it is not liveData
+                    // TODO USE VIEWMODEL
                     UserRepository userRepository = new UserRepository();
                     userRepository.registerUser(new UserRepository.RegisterUserCallBack() {
                         @Override
-                        public void onRegistered(Boolean success) {
+                        public boolean onRegistered(Boolean success) {
 
 
                             Toast.makeText(getActivity(), "Kaydınız başarılı giriş yapın", Toast.LENGTH_LONG).show();
 
-                            // Redirect to first fragment.
-                            FragmentManager fragmentManager = getParentFragmentManager();
-                            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.mainFrameLayout, new LoginRegisterFragment())
-                                    .addToBackStack(null)
-                                    .commit();
+                            redirectFirstFragment();
 
+                            return false;
                         }
 
 
@@ -125,5 +123,14 @@ public class RegisterCompanyFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void redirectFirstFragment(){
+        FragmentManager fm = getParentFragmentManager();
+        fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fm.beginTransaction()
+                .replace(R.id.mainFrameLayout, new LoginRegisterFragment())
+                .commit();
+
     }
 }

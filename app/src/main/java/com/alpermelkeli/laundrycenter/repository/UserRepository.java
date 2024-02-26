@@ -13,8 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,7 +170,7 @@ public class UserRepository {
 
     public interface RegisterUserCallBack{
 
-        void onRegistered(Boolean success);
+        boolean onRegistered(Boolean success);
 
         void onFailure(String fail);
     }
