@@ -26,7 +26,7 @@ public class UserViewModel extends ViewModel {
 
     public void checkUser(String email, String password){
 
-        userRepository.checkUser(new UserRepository.CheckUserCallBack() {
+        userRepository.checkUserFirstLogin(new UserRepository.CheckUserCallBack() {
             @Override
             public void onSuccess(Boolean success) {
                 isLogged = true;

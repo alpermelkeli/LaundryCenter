@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.ActivityAfterScanBinding;
-import com.alpermelkeli.laundrycenter.plugAPI.TurnOnOff;
+import com.alpermelkeli.laundrycenter.repository.plugAPI.TurnOnOff;
 import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
 import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 

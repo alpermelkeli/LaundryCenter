@@ -7,19 +7,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.alpermelkeli.laundrycenter.R;
 import com.alpermelkeli.laundrycenter.databinding.FragmentLoginBinding;
-import com.alpermelkeli.laundrycenter.databinding.FragmentRegisterPasswordBinding;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
 import com.alpermelkeli.laundrycenter.ui.homescreen.HomeScreen;
-import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -45,7 +41,7 @@ public class LoginFragment extends Fragment {
 
                 //TODO Use ViewModel
                 UserRepository userRepository = new UserRepository();
-                userRepository.checkUser(new UserRepository.CheckUserCallBack() {
+                userRepository.checkUserFirstLogin(new UserRepository.CheckUserCallBack() {
                     @Override
                     public void onSuccess(Boolean success) {
 

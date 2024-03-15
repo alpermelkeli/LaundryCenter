@@ -14,12 +14,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.alpermelkeli.laundrycenter.TimeAPI.TimeApi;
+import com.alpermelkeli.laundrycenter.repository.TimeAPI.TimeApi;
 import com.alpermelkeli.laundrycenter.databinding.ActivityMainBinding;
 import com.alpermelkeli.laundrycenter.repository.UserRepository;
 import com.alpermelkeli.laundrycenter.ui.homescreen.HomeScreen;
 import com.alpermelkeli.laundrycenter.ui.loginregister.fragment.LoginRegisterFragment;
-import com.alpermelkeli.laundrycenter.viewmodel.DeviceViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                 intent.putExtra("email", email);
                 startActivity(intent);
-                finish(); // Aktiviteyi kapat
+                finish();
             }
 
             @Override

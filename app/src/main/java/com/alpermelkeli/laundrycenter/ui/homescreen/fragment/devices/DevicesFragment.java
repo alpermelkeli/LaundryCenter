@@ -45,7 +45,6 @@ public class DevicesFragment extends Fragment {
                 binding.devicesProgressBar.setVisibility(View.GONE);
                 binding.devicesConstraint.setVisibility(View.VISIBLE);
             });
-
         });
 
 

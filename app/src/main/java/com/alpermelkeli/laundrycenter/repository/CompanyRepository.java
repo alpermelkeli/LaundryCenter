@@ -34,9 +34,7 @@ public class CompanyRepository {
     }
 
     public interface CompaniesCallBack{
-
         void onSuccess(List<String> companies);
-
 
     }
 

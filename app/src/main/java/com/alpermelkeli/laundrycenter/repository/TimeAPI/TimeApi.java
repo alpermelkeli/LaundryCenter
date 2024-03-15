@@ -1,4 +1,4 @@
-package com.alpermelkeli.laundrycenter.TimeAPI;
+package com.alpermelkeli.laundrycenter.repository.TimeAPI;
 
 import android.util.Log;
 

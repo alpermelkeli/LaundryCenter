@@ -1,11 +1,18 @@
 package com.alpermelkeli.laundrycenter.repository;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.alpermelkeli.laundrycenter.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -19,39 +26,47 @@ import java.util.Map;
 import java.util.List;
 public class UserRepository {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     User user = new User();
+    //Check if user logged in successfully and whether complete verification.
+    public void checkUserFirstLogin(CheckUserCallBack callBack, String email, String password){
 
-
-    //Check if user logged in successfully
-    public void checkUser(CheckUserCallBack callBack, String email, String password){
-
-        db.collection("Users")
-                .document(email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        auth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                String storedPassword = document.getString("password");
-                                if (storedPassword != null && password.equals(storedPassword)) {
-                                    callBack.onSuccess(true);
-                                } else {
-                                    callBack.onFailure("Kullanıcı şifresi yanlış");
-                                }
-                            } else {
-                                // E-posta adresine sahip belge var ama belgede "password" alanı yok
-                                callBack.onFailure("Kullanıcı bulunamadı");
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null && user.isEmailVerified()) {
+                                callBack.onSuccess(true);
                             }
-                        } else {
-                            // Firestore'dan belge alırken hata oluştu
-                            callBack.onFailure("Belge alınırken hata oluştu: " + task.getException());
+                            else {
+                                callBack.onFailure("Email verification required.");
+                            }
+                        }
+                        else{
+                            callBack.onFailure("Kullanıcı daha önce kayıt olmamış." + task.getException().toString());
                         }
                     }
                 });
     }
 
+    //Difference between checkUserFirstLogin is email verification step. I added this to work more quick in first scren.
+    public void checkUser(CheckUserCallBack callBack, String email, String password){
+
+        auth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            callBack.onSuccess(true);
+                        }
+                        else{
+                            callBack.onFailure("Kullanıcı daha önce kayıt olmamış." + task.getException().toString());
+                        }
+                    }
+                });
+    }
 
     //Get user data from database after logged in and show balance name etc.
     public void getUser(GetUserCallBack callBack, String email){
@@ -81,6 +96,7 @@ public class UserRepository {
                 });
     }
 
+    //Firstly save to database if doesn't exist after that save to firebaseAuth and send email verification.
     public void registerUser(RegisterUserCallBack callBack, String email, String password, String company){
         DocumentReference docRef = db.collection("Users").document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,29 +105,55 @@ public class UserRepository {
                 if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
+                        //Check if user registered the app before.
                         callBack.onFailure("User registered before");
-
                     }
                     else {
                         Map<String, Object> newUser = new HashMap<>();
                         newUser.put("email", email);
-                        newUser.put("password",password);
                         newUser.put("company", company);
                         newUser.put("balance", 0);
                         newUser.put("history", FieldValue.arrayUnion());
                         docRef.set(newUser);
-                        callBack.onRegistered(true);
+                        auth.createUserWithEmailAndPassword(email,password)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            sendVerificationEmail(user);
+                                            callBack.onRegistered(true);
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        callBack.onFailure(e.getMessage());
+                                    }
+                                });
+
                     }
-
-
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onFailure(e.toString());
+                callBack.onFailure(e.getMessage());
             }
         });
+    }
+
+    public void sendVerificationEmail(FirebaseUser user){
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+
+                    }
+                });
     }
 
     public void updateBalance(UpdateBalanceCallBack callBack, String email, double newBalance){

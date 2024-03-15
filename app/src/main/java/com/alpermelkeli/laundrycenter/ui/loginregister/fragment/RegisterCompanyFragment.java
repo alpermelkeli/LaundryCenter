@@ -95,7 +95,7 @@ public class RegisterCompanyFragment extends Fragment {
                         public boolean onRegistered(Boolean success) {
 
 
-                            Toast.makeText(getActivity(), "Kaydınız başarılı giriş yapın", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "E-postanıza gönderilen linkle e-postanızı onayladıktan sonra giriş yapabilirsiniz.", Toast.LENGTH_LONG).show();
 
                             redirectFirstFragment();
 

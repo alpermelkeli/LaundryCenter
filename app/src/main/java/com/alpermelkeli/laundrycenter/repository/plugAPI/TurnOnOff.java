@@ -1,4 +1,4 @@
-package com.alpermelkeli.laundrycenter.plugAPI;
+package com.alpermelkeli.laundrycenter.repository.plugAPI;
 
 
 import android.util.Log;
