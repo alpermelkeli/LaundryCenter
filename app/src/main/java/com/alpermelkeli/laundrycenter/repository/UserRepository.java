@@ -45,7 +45,7 @@ public class UserRepository {
                             }
                         }
                         else{
-                            callBack.onFailure("Kullanıcı daha önce kayıt olmamış." + task.getException().toString());
+                            callBack.onFailure("Şifre veya kullanıcı adı yanlış.");
                         }
                     }
                 });
@@ -62,7 +62,7 @@ public class UserRepository {
                             callBack.onSuccess(true);
                         }
                         else{
-                            callBack.onFailure("Kullanıcı daha önce kayıt olmamış." + task.getException().toString());
+                            callBack.onFailure("Şifre veya kullanıcı adı yanlış.");
                         }
                     }
                 });
@@ -156,6 +156,21 @@ public class UserRepository {
                 });
     }
 
+    public void sendPasswordResetEmail(ResetPasswordCallBack callBack, String email){
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        callBack.onSuccess("Kayıtlı ise e-postana şifre sıfırlama maili gönderildi");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callBack.onFailure("E-postana sıfırlama mailini gönderirken bir sorun oluştu:"+e.getMessage());
+                    }
+                });
+    }
+
     public void updateBalance(UpdateBalanceCallBack callBack, String email, double newBalance){
         db.collection("Users")
                 .document(email)
@@ -227,6 +242,10 @@ public class UserRepository {
 
         void onSuccess(String success);
 
+    }
+    public interface ResetPasswordCallBack{
+        void onSuccess(String success);
+        void onFailure(String fail);
 
     }
 }

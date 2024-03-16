@@ -49,7 +49,6 @@ public class LoginRegisterFragment extends Fragment {
     }
 
 
-    //TODO configure animation again.
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.slide_in,

@@ -29,7 +29,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="367dp"
+            android:layout_height="390dp"
             android:layout_marginBottom="92dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,6 +86,18 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
+
+            <TextView
+                android:id="@+id/forgetPassword"
+                android:layout_width="110dp"
+                android:textAlignment="textEnd"
+                android:layout_marginStart="258dp"
+                android:fontFamily="@font/semibold"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="Şifremi unuttum" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginNextButton"
