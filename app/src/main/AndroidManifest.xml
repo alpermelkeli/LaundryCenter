@@ -43,6 +43,7 @@
             android:screenOrientation="portrait"
             tools:replace="android:screenOrientation"
             android:stateNotNeeded="true"/>
+
     </application>
 
 </manifest>
