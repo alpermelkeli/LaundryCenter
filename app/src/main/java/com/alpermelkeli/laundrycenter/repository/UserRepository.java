@@ -178,12 +178,12 @@ public class UserRepository {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                      if (task.isSuccessful()){
-                          callBack.onSuccess("Success");
-                      }
-                      else {
-                          callBack.onFailure(task.getException().toString());
-                      }
+                        if (task.isSuccessful()){
+                            callBack.onSuccess("Success");
+                        }
+                        else {
+                            callBack.onFailure(task.getException().toString());
+                        }
                     }
                 });
 

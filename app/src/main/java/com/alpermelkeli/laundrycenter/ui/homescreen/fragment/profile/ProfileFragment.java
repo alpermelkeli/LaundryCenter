@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alpermelkeli.laundrycenter.R;
-import com.alpermelkeli.laundrycenter.databinding.DialogHistoryBinding;
+import com.alpermelkeli.laundrycenter.databinding.HistoryDialogBinding;
 import com.alpermelkeli.laundrycenter.databinding.FragmentProfileBinding;
 import com.alpermelkeli.laundrycenter.model.User;
 import com.alpermelkeli.laundrycenter.ui.loginregister.MainActivity;
@@ -107,9 +107,9 @@ public class ProfileFragment extends Fragment {
     }
 
     public void createAlertDialog(){
-        DialogHistoryBinding bindingDialog;
+        HistoryDialogBinding bindingDialog;
 
-        bindingDialog = DialogHistoryBinding.inflate(getLayoutInflater());
+        bindingDialog = HistoryDialogBinding.inflate(getLayoutInflater());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(binding.getRoot().getContext());
 

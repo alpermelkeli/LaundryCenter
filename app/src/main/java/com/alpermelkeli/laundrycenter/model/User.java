@@ -1,10 +1,10 @@
 package com.alpermelkeli.laundrycenter.model;
 import java.util.List;
 public class User {
-    Double balance;
-    String company;
-    String email;
-    List<String> history;
+    private Double balance;
+    private String company;
+    private String email;
+    private List<String> history;
 
     public List<String> getHistory() {
         return history;

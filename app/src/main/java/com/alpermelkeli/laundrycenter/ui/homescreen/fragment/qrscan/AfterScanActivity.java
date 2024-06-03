@@ -24,6 +24,8 @@ import com.alpermelkeli.laundrycenter.viewmodel.UserViewModel;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class AfterScanActivity extends AppCompatActivity {
@@ -87,7 +89,7 @@ public class AfterScanActivity extends AppCompatActivity {
 
                         LayoutInflater inflater = getLayoutInflater();
 
-                        View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+                        View dialogView = inflater.inflate(R.layout.purchase_confirm_dialog, null);
                         builder.setView(dialogView);
 
                         TextView message = dialogView.findViewById(R.id.dialog_message);
@@ -167,32 +169,29 @@ public class AfterScanActivity extends AppCompatActivity {
     }
 
 
-    private Boolean getPaymentFromUser(int minute,double userBalance){
-
-        double price = (priceData/60)*minute;
+    private Boolean getPaymentFromUser(int minute, double userBalance) {
+        double price = (priceData / 60) * minute;
 
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
         decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+        decimalFormat.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.US));
 
-        double newBalance = userBalance-price;
+        double newBalance = userBalance - price;
 
-        newBalance = Double.parseDouble(decimalFormat.format(newBalance));
+        newBalance = Double.parseDouble(decimalFormat.format(newBalance).replace(',', '.'));
+        price = Double.parseDouble(decimalFormat.format(price).replace(',', '.'));
 
-        price = Double.parseDouble(decimalFormat.format(price));
-
-        if(newBalance<0){
+        if (newBalance < 0) {
             Toast.makeText(getApplicationContext(), "Bakiye Yetersiz", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else {
-            userViewModel.updateUserBalance(email,newBalance);
-            userViewModel.addHistory(email,System.currentTimeMillis(),price);
+        } else {
+            userViewModel.updateUserBalance(email, newBalance);
+            userViewModel.addHistory(email, System.currentTimeMillis(), price);
             userViewModel.getUser(email);
             return true;
         }
-
     }
+
 
     private void startCountDownTimer(final TextView textView, final TextView statusText , long durationInMillis) {
         CountDownTimer countDownTimer = new CountDownTimer(durationInMillis, 1000) {
@@ -217,7 +216,7 @@ public class AfterScanActivity extends AppCompatActivity {
         long timeToAddInMillis = TimeUnit.MINUTES.toMillis(minute);
 
         deviceViewModel.getDeviceLiveData().observe(this, device -> {
-           long newTime = timeToAddInMillis+device.getTime();
+            long newTime = timeToAddInMillis+device.getTime();
 
             // Update the device with the new time
             if(getPaymentFromUser(minute,balance)){

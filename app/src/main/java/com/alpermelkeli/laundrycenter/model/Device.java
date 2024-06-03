@@ -1,14 +1,14 @@
 package com.alpermelkeli.laundrycenter.model;
 
 public class Device {
-    String name;
+    private String name;
 
 
 
-    String id;
-    String channel;
-    long start;
-    long time;
+    private String id;
+    private String channel;
+    private long start;
+    private long time;
 
     public String getName() {
         return name;

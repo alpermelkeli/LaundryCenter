@@ -27,7 +27,6 @@ public class TurnOnOff {
 
     public void sendDeviceControl(String id, String authKey, String channel, String turn) {
         Call<ResponseBody> call = apiService.sendDeviceControl(id, authKey, channel, turn);
-
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -42,7 +41,6 @@ public class TurnOnOff {
                     Log.e("Error", "Response not successful");
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Error", "Request failed", t);
@@ -52,6 +50,4 @@ public class TurnOnOff {
 
 
 }
-
-// Example Usage turnOnOff.sendDeviceControl("80646fd1c080", "MjE3OTdhdWlk598FB7E13A0F9D9EB9660D10F8A818B8588B9AC0D5FB6AE26E0BADE57B1EC1D4817B7BE91AF82CA2", "0","off");
 
