@@ -39,8 +39,8 @@ android {
 dependencies {
     implementation("commons-net:commons-net:3.7")
     implementation ("org.jsoup:jsoup:1.11.1")
-    implementation("com.google.zxing:core:3.4.0")
-    implementation("com.journeyapps:zxing-android-embedded:3.6.0")
+    implementation("com.google.zxing:core:3.4.1")
+    implementation ("com.journeyapps:zxing-android-embedded:4.1.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))

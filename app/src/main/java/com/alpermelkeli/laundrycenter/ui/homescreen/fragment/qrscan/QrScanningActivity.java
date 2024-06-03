@@ -1,7 +1,10 @@
 package com.alpermelkeli.laundrycenter.ui.homescreen.fragment.qrscan;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,8 +42,7 @@ public class QrScanningActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-            // QR kod taraması iptal edildi veya bir hata oluştu
-            // İşlemlerinizi buna göre yönetin
+            Toast.makeText(this, "Qr taranırken bir sorun oluştu.",Toast.LENGTH_LONG).show();
         }
         finish();
     }
